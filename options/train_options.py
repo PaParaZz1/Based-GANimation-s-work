@@ -5,7 +5,7 @@ class TrainOptions(BaseOptions):
     def initialize(self):
         BaseOptions.initialize(self)
         self._parser.add_argument('--n_threads_train', default=4, type=int, help='# threads for loading data')
-        self._parser.add_argument('--num_iters_validate', default=1, type=int, help='# batches to use when validating')
+        self._parser.add_argument('--num_iters_validate', default=300, type=int, help='# batches to use when validating')
         self._parser.add_argument('--print_freq_s', type=int, default=60, help='frequency of showing training results on console')
         self._parser.add_argument('--display_freq_s', type=int, default=300, help='frequency [s] of showing training results on screen')
         self._parser.add_argument('--save_latest_freq_s', type=int, default=3600, help='frequency of saving the latest results')

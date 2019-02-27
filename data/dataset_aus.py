@@ -24,8 +24,8 @@ class AusDataset(DatasetBase):
         real_cond = None
         while real_img is None or real_cond is None:
             # if sample randomly: overwrite index
-            if not self._opt.serial_batches:
-                index = random.randint(0, self._dataset_size - 1)
+            # if not self._opt.serial_batches:
+                # index = random.randint(0, self._dataset_size - 1)
 
             # get sample data
             sample_id = self._ids[index]
@@ -69,9 +69,9 @@ class AusDataset(DatasetBase):
 
         # read aus
         conds_filepath = os.path.join(self._root, self._opt.aus_file)
-        self._conds = self._read_conds(conds_filepath)
+        self._conds = self._read_conds(use_ids_filepath)
 
-        self._ids = list(set(self._ids).intersection(set(self._conds.keys())))
+        #self._ids = list(set(self._ids).intersection(set(self._conds.keys())))
 
         # dataset size
         self._dataset_size = len(self._ids)
@@ -97,12 +97,10 @@ class AusDataset(DatasetBase):
     def _read_conds(self, file_path):
         with open(file_path, 'rb') as f:
             return pickle.load(f)
-
+    
     def _get_cond_by_id(self, id):
-        if id in self._conds:
-            return self._conds[id]/5.0
-        else:
-            return None
+        AU_RANGE = 5.0
+        filepath = os.path.join(self._imgs_dir, id+'.csv')
 
     def _get_img_by_id(self, id):
         filepath = os.path.join(self._imgs_dir, id+'.jpg')
